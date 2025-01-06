@@ -95,7 +95,7 @@ class TwitchBot {
                     process.env.TWITCH_CLIENT_ID!,
                     process.env.TWITCH_CLIENT_SECRET!,
                     code,
-                    'https://aidle.moe/auth/callback'
+                    `https://${config.DOMAIN}/auth/callback`
                 );
 
                 await this.saveTokens(tokenData);
@@ -110,7 +110,7 @@ class TwitchBot {
 
         this.app.get('/auth', (_req, res) => {
             const scopes = ['chat:read', 'chat:edit', 'channel:manage:vips', 'channel:manage:broadcast'];
-            const authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${process.env.TWITCH_CLIENT_ID}&redirect_uri=https://aidle.moe/auth/callback&response_type=code&scope=${scopes.join('+')}`;
+            const authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${process.env.TWITCH_CLIENT_ID}&redirect_uri=https://${config.DOMAIN}/auth/callback&response_type=code&scope=${scopes.join('+')}`;
             res.redirect(authUrl);
         });
     }
@@ -321,7 +321,7 @@ class TwitchBot {
         await this.initializeBot();
 
         this.app.listen(port, () => {
-            console.log(`Visit https://aidle.moe/auth to authenticate with Twitch`);
+            console.log(`Visit https://${config.DOMAIN}/auth to authenticate with Twitch`);
         });
     }
 
