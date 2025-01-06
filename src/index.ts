@@ -592,21 +592,6 @@ discordClient.on('messageCreate', async (message: Message) => {
 
 });
 
-// Voice state update event
-discordClient.on('voiceStateUpdate', async (oldState, newState) => {
-    // Check if user has joined a voice channel
-    // if (oldState.channel === null && newState.channel !== null) {
-    if (newState.member?.id === '917845281800847410') {
-        const testChannel = await discordClient.channels.fetch('1313915669435256935') as TextChannel
-        await testChannel.send({
-            content: `Joined voice channel ${newState?.channel?.url}`
-        });
-    } else {
-        console.log(`Member that joined: ${newState.member}`)
-    }
-    // }
-});
-
 async function warnError(error: any) {
     console.error(error);
     try {
