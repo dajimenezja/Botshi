@@ -6,6 +6,10 @@ A Twitch and Discord bot with utilities for mods and editors.
 * `!vip <username>` Add user as a vip. Only moderators can use this.
 * `!unvip <username> ` Remove user as a vip. Only moderators can use this.
 * `!tag <message>` Add a tag at the current time for the stream.
+* Broadcaster account must be authenticated as only the broadcaster can manage VIPs.
+* The bot may run under any other account but it should use the broadcaster's user access token.
+* Tags will be saved as a json file under `tags.${streamid}.json`
+* Retrieve the tags with the discord command using the vod id
 
 ## Discord
 * `/tagstwitch` Retrieve tags for a given vod id in a format that links to twitch with `?t=timestamp`
@@ -16,6 +20,8 @@ A Twitch and Discord bot with utilities for mods and editors.
 * Send mod messages to `MOD_CHANNEL_ID`
 
 # Quickstart
+## Install
+Initiate the repo with `npm install`
 ## Environment
 You must fill the required environment file `.env` with the following data of your own bots and channels:
 ```
@@ -32,11 +38,16 @@ TWITCH_GLOBAL_DELAY=15 #int in seconds
 DOMAIN= #string
 ```
 For twitch you must authenticate as the broadcaster in order to have access to broadcoaster only commands such as vip.
+## Run
+To run dev build:
+`tsx watch src/index.ts`
 
 ## OAuth
 Your server must be able to authenticate through oauth. Go to your server address `https://domain.com/auth` to initiate the oauth request.
 It will be given back to the bot on `https://domain.com/auth/callback`
 I use express on this app with an ngnix reverse proxy.
+
+If running locally you can use `localhost` instead.
 
 ## Warning
 You should probably not use this in production. Currently, everything is saved locally in json files instead of a proper DB.
