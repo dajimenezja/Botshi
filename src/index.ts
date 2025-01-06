@@ -1,8 +1,8 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonComponent, ButtonStyle, Client, Colors, ComponentBuilder, EmbedBuilder, Events, GuildChannel, Message, messageLink, TextChannel } from "discord.js";
+import { Client, Colors, EmbedBuilder, Events, GuildChannel, Message, TextChannel } from "discord.js";
 import { deployCommands } from "./deploy-commands";
 import { commands } from "./commands";
 import { config } from "./config";
-import { ApiClient, HelixPaginatedResult, HelixVideo, UserIdResolvable } from '@twurple/api';
+import { ApiClient, HelixVideo, UserIdResolvable } from '@twurple/api';
 import { EventSubWsListener } from '@twurple/eventsub-ws';
 import { Bot, createBotCommand } from '@twurple/easy-bot';
 import { AccessToken, RefreshingAuthProvider, exchangeCode } from '@twurple/auth';
@@ -585,7 +585,6 @@ discordClient.on('messageCreate', async (message: Message) => {
     const memberName = message.member?.nickname || message.member?.displayName
 
     checkIfForbiddenMention(message);
-    forwardTest(message);
     replyToDiscordCommand(message);
     checkIfGuildCustomLinkIsInactive();
 
@@ -607,35 +606,6 @@ discordClient.on('voiceStateUpdate', async (oldState, newState) => {
     }
     // }
 });
-
-async function forwardTest(message: Message<boolean>) {
-    if (message.author.id === '917845281800847410') {
-        try {
-            const testChannel = await discordClient.channels.fetch('1313915669435256935') as TextChannel;
-
-            const embed = new EmbedBuilder()
-                .setAuthor({ name: message.author.displayName, iconURL: message.author.displayAvatarURL() })
-                .setTitle((message.channel as GuildChannel).name);
-
-            const component = new ActionRowBuilder<ButtonBuilder>().addComponents(
-                new ButtonBuilder()
-                    .setStyle(ButtonStyle.Link)
-                    .setLabel("Message")
-                    .setURL(message.url)
-            )
-
-            await testChannel.send({
-                embeds: [embed],
-                content: `${message}`,
-                files: message.attachments.size > 0 ? Array.from(message.attachments.values()) : [],
-                components: [component]
-            });
-
-        } catch (error) {
-            warnError(error);
-        }
-    }
-}
 
 async function warnError(error: any) {
     console.error(error);
@@ -670,6 +640,6 @@ export async function getTwitchVodFromId(id: string): Promise<HelixVideo | null>
     } catch (error) {
         warnError(error)
     }
-    console.log(`vod failed to retrieve`)
+    console.log(`failed to retrieve vod`)
     return null
 }
