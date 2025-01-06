@@ -1,0 +1,43 @@
+{
+  "name": "devbicho",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsup src/index.ts --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/express-session": "^1.18.1",
+    "@types/node": "^22.10.5",
+    "@types/passport": "^1.0.17",
+    "@types/passport-oauth2": "^1.4.17",
+    "@types/request": "^2.48.12",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@twurple/api": "^7.2.1",
+    "@twurple/auth": "^7.2.1",
+    "@twurple/chat": "^7.2.1",
+    "@twurple/easy-bot": "^7.2.1",
+    "@twurple/eventsub-ws": "^7.2.1",
+    "discord": "^0.8.2",
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-session": "^1.15.2",
+    "handlebars": "^4.0.6",
+    "passport": "^0.3.2",
+    "passport-oauth": "^1.0.0",
+    "request": "^2.81.0",
+    "twitch-js": "^2.0.0-beta.45"
+  }
+}
